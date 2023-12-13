@@ -15,11 +15,11 @@ public class UserController {
 
     @GetMapping()
     public String hello(){
-        return "Hello from spring boot keycloak";
+        return "Hello1";
     }
 
     @GetMapping("/hello-2")
     public String hello2(){
-        return "Hello from spring boot keycloak  -  Admin";
+        return "Hello2";
     }
 }
