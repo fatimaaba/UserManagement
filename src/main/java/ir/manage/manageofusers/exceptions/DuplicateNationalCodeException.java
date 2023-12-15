@@ -5,4 +5,6 @@ package ir.manage.manageofusers.exceptions;
  * @Date 12/13/2023
  */
 public class DuplicateNationalCodeException extends Throwable{
+    public DuplicateNationalCodeException(String userIsAlredyExist) {;
+    }
 }

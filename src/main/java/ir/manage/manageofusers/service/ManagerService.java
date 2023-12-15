@@ -2,6 +2,11 @@ package ir.manage.manageofusers.service;
 
 import ir.manage.manageofusers.dto.request.AddManagerRequest;
 import ir.manage.manageofusers.dto.request.UpdateManagerRequest;
+import ir.manage.manageofusers.dto.response.ManagerListResponse;
+import ir.manage.manageofusers.dto.response.UserListResponse;
+import ir.manage.manageofusers.exceptions.DuplicateEmailException;
+import ir.manage.manageofusers.exceptions.ManagerNotFoundException;
+import ir.manage.manageofusers.exceptions.UserNotFoundException;
 
 /**
  * @author F_Babaei
@@ -10,9 +15,11 @@ import ir.manage.manageofusers.dto.request.UpdateManagerRequest;
 public interface ManagerService {
 
 
-    void addManager(AddManagerRequest addManagerRequest);
+    void addManager(AddManagerRequest addManagerRequest) throws ManagerNotFoundException, DuplicateEmailException;
 
-    void updateManager(UpdateManagerRequest updateManagerRequest);
+    void updateManager(UpdateManagerRequest updateManagerRequest) throws UserNotFoundException, ManagerNotFoundException;
 
-    void deleteManager(String externalId);
+    ManagerListResponse findAllManagers(String name, String lastName, String email, String password, Integer page, Integer size);
+
+    void deleteManager(String externalId) throws UserNotFoundException, ManagerNotFoundException;
 }

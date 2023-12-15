@@ -31,8 +31,6 @@ public class AddUserRequest {
     private Boolean isActive;
 
     @NotEmpty
-    private Boolean nationalCode;
+    private String nationalCode;
 
-    @NotEmpty
-    private String externalId;
 }

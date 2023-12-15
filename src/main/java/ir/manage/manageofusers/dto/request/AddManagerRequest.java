@@ -27,6 +27,4 @@ public class AddManagerRequest {
     @NotEmpty
     private String password;
 
-    @NotEmpty
-    private String externalId;
 }

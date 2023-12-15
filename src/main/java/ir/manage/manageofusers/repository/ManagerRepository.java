@@ -21,9 +21,9 @@ import java.util.Optional;
 public interface ManagerRepository extends JpaRepository<Manager,Long> {
 
 
-    Optional<Manager> getUserByEmail(String email);
+    Optional<Manager> getManagerByEmail(String email);
 
-    Optional<Manager> getUserByExternalId(String externalId);
+    Optional<Manager> getManagerByExternalId(String externalId);
 
 
     @Query("select m from Manager m where " +
@@ -31,7 +31,7 @@ public interface ManagerRepository extends JpaRepository<Manager,Long> {
             " ( :lastName is null or m.lastName like %:lastName% ) and  " +
             " ( :email is null or m.email like %:email% ) and " +
             " ( :password is null or m.password = :password)")
-    Page<User> getByFilter(@Param("name") String name,
+    Page<Manager> getByFilter(@Param("name") String name,
                            @Param("lastName") String lastName,
                            @Param("email") String email,
                            @Param("password") String password,

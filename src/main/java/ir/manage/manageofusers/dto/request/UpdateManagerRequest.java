@@ -16,4 +16,5 @@ public class UpdateManagerRequest {
     private String email;
     private String address;
     private String externalId;
+    private String password;
 }
