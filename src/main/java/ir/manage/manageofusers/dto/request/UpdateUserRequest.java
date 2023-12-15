@@ -17,6 +17,6 @@ public class UpdateUserRequest {
     private String password;
     private String address;
     private Boolean isActive;
-    private Boolean nationalCode;
+    private String nationalCode;
     private String externalId;
 }
