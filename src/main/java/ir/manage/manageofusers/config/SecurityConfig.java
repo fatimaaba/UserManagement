@@ -2,6 +2,7 @@ package ir.manage.manageofusers.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -24,6 +25,21 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
+                .requestMatchers("/oauth2/token/**").permitAll()
+                .requestMatchers("/error").permitAll()
+                .requestMatchers("/openapi/**").permitAll()
+                .requestMatchers("/webjars/**").permitAll()
+                .requestMatchers("/swagger-ui/**").permitAll()
+                .requestMatchers("/error/**").permitAll()
+                .requestMatchers("/actuator/health/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/webjars/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
+                .requestMatchers(HttpMethod.GET, "/swagger-resources/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/user-service/v3/api-docs/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/dept-service/v3/api-docs/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/organization-service/v3/api-docs/**").permitAll()
+                .requestMatchers("/swagger-ui/oauth2-redirect.html").permitAll()
                 .anyRequest()
                 .authenticated();
 

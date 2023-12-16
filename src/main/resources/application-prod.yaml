@@ -1,0 +1,45 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/SampleRealm
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+
+
+  liquibase:
+    enabled: true
+    url: jdbc:oracle:thin:@localhost:1521:XE
+    user: fatima
+    password: 123456
+    change-log: classpath:master.xml
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+    database: oracle
+    show-sql: true
+
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:XE
+    username: fatima
+    password: 123456
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+  application:
+    name: userManagement
+
+springdoc:
+  swagger-ui:
+    oauth2-redirect-url: /swagger-ui/oauth2-redirect.html
+    oauth:
+      client-id: fatima-client
+      use-basic-authentication-with-access-code-grant: true
+  oAuthFlow:
+    authorizationUrl:
+      http://localhost:8080/realms/SampleRealm
+    tokenUrl: http://localhost:8080/realms/SampleRealm/protocol/openid-connect/token
+
+server:
+  port: 8081
