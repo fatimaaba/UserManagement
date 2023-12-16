@@ -2,13 +2,9 @@ package ir.manage.manageofusers.controller;
 
 
 import ir.manage.manageofusers.dto.request.AddManagerRequest;
-import ir.manage.manageofusers.dto.request.AddUserRequest;
 import ir.manage.manageofusers.dto.response.ManagerListResponse;
-import ir.manage.manageofusers.dto.response.UserListResponse;
 import ir.manage.manageofusers.exceptions.DuplicateEmailException;
-import ir.manage.manageofusers.exceptions.DuplicateNationalCodeException;
 import ir.manage.manageofusers.exceptions.ManagerNotFoundException;
-import ir.manage.manageofusers.exceptions.UserNotFoundException;
 import ir.manage.manageofusers.service.ManagerService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;

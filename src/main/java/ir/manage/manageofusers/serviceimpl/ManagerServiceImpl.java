@@ -18,6 +18,7 @@ import ir.manage.manageofusers.utils.SetUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
@@ -25,6 +26,8 @@ import java.util.UUID;
  * @author F_Babaei
  * @Date 12/13/2023
  */
+
+@Service
 @Slf4j
 @RequiredArgsConstructor
 public class ManagerServiceImpl implements ManagerService {
@@ -87,6 +90,7 @@ public class ManagerServiceImpl implements ManagerService {
                 orElseThrow(() -> new ManagerNotFoundException("Manager not found!!!"));
 
         return manager;
+
     }
 
     @Override
