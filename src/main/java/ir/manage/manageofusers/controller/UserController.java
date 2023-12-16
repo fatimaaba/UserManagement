@@ -1,8 +1,20 @@
 package ir.manage.manageofusers.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import ir.manage.manageofusers.dto.request.AddUserRequest;
+import ir.manage.manageofusers.dto.response.UserListResponse;
+import ir.manage.manageofusers.exceptions.DuplicateEmailException;
+import ir.manage.manageofusers.exceptions.DuplicateNationalCodeException;
+import ir.manage.manageofusers.exceptions.UserNotFoundException;
+import ir.manage.manageofusers.service.UserService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author F_Babaei
@@ -10,16 +22,27 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/v1/users")
+@AllArgsConstructor
 public class UserController {
 
+    private UserService userService;
 
-    @GetMapping()
-    public String hello(){
-        return "Hello1";
+    @PostMapping("/add")
+    @ResponseStatus(HttpStatus.CREATED)
+    @Validated
+    public void addUser(@Valid @RequestBody AddUserRequest request) throws DuplicateNationalCodeException {
+        userService.addUser(request);
     }
 
-    @GetMapping("/hello-2")
-    public String hello2(){
-        return "Hello2";
+    @GetMapping("/filter")
+    @ResponseStatus(HttpStatus.OK)
+    @Validated
+    public UserListResponse getByCriteria(@RequestParam(required = false, defaultValue = "0") @Min(0) Integer page,
+                                          @RequestParam(required = false, defaultValue = "20") @Min(1) @Max(100) Integer size,
+                                          @RequestParam(required = false) String name,
+                                          @RequestParam(required = false) String lastName,
+                                          @RequestParam(required = false) String password,
+                                          @RequestParam(required = false) String email) {
+        return userService.findAllUsers(name,lastName, password, email, page, size);
     }
 }
