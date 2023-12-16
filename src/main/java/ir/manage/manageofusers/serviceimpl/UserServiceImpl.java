@@ -71,8 +71,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserListResponse findAllUsers(String name,String lastName,String email,String password,Integer page, Integer size) {
-        var dbResponse = userRepository.getByFilter(name, lastName, email,password, PageRequest.of(page, size));
+    public UserListResponse findAllUsers(String name,String lastName,String email,String nationalCode,String password,Integer page, Integer size) {
+        var dbResponse = userRepository.getByFilter(name, lastName, email,password,nationalCode, PageRequest.of(page, size));
         log.info("Getting UserList from DataBase: '{}'", dbResponse);
         return (UserListResponse) SetUtil.fillData(new UserListResponse(), dbResponse, userMapper);
     }

@@ -2,9 +2,7 @@ package ir.manage.manageofusers.controller;
 
 import ir.manage.manageofusers.dto.request.AddUserRequest;
 import ir.manage.manageofusers.dto.response.UserListResponse;
-import ir.manage.manageofusers.exceptions.DuplicateEmailException;
 import ir.manage.manageofusers.exceptions.DuplicateNationalCodeException;
-import ir.manage.manageofusers.exceptions.UserNotFoundException;
 import ir.manage.manageofusers.service.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
@@ -13,8 +11,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @author F_Babaei
@@ -42,7 +38,8 @@ public class UserController {
                                           @RequestParam(required = false) String name,
                                           @RequestParam(required = false) String lastName,
                                           @RequestParam(required = false) String password,
+                                          @RequestParam(required = false) String nationalCode,
                                           @RequestParam(required = false) String email) {
-        return userService.findAllUsers(name,lastName, password, email, page, size);
+        return userService.findAllUsers(name,lastName, password,nationalCode , email, page, size);
     }
 }

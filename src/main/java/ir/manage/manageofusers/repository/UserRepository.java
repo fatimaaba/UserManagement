@@ -28,10 +28,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
             " ( :name is null or u.name like %:name% ) and  " +
             " ( :lastName is null or u.lastName like %:lastName% ) and  " +
             " ( :email is null or u.email like %:email% ) and " +
+            " ( :email is null or u.nationalCode = :nationalCode ) and " +
             " ( :password is null or u.password = :password)")
     Page<User> getByFilter(@Param("name") String name,
                            @Param("lastName") String lastName,
                            @Param("email") String email,
+                           @Param("nationalCode") String nationalCode,
                            @Param("password") String password,
                            Pageable pageable);
 

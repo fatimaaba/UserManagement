@@ -17,6 +17,6 @@ public interface UserService {
 
     void updateUser(UpdateUserRequest updateUserRequest) throws UserNotFoundException;
 
-    UserListResponse findAllUsers(String name,String lastName,String email,String password,Integer page, Integer size);
+    UserListResponse findAllUsers(String name,String lastName,String email,String nationalCode,String password,Integer page, Integer size);
     void deleteUser(String externalId) throws UserNotFoundException;
 }
