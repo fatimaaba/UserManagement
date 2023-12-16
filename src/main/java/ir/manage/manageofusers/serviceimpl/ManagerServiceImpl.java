@@ -80,6 +80,16 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
+    public Manager getManagerByEmail(String email) throws ManagerNotFoundException {
+
+        log.info("Get manager with this email: '{}'", email);
+        var manager = managerRepository.getManagerByEmail(email).
+                orElseThrow(() -> new ManagerNotFoundException("Manager not found!!!"));
+
+        return manager;
+    }
+
+    @Override
     public void deleteManager(String externalId) throws ManagerNotFoundException {
 
         log.info("Deleting user with this externalId: '{}'", externalId);

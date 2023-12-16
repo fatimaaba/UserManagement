@@ -66,17 +66,16 @@ public class UserServiceImpl implements UserService {
         user.setLastName(updateUserRequest.getLastName());
         user.setNationalCode(user.getNationalCode());
 
-        log.info("User with this name: '{}' has been updated and saved in database",updateUserRequest.getName());
+        log.info("User with this name: '{}' has been updated and saved in database", updateUserRequest.getName());
         userRepository.save(user);
     }
 
     @Override
-    public UserListResponse findAllUsers(String name,String lastName,String email,String nationalCode,String password,Integer page, Integer size) {
-        var dbResponse = userRepository.getByFilter(name, lastName, email,password,nationalCode, PageRequest.of(page, size));
+    public UserListResponse findAllUsers(String name, String lastName, String email, String nationalCode, String password, Integer page, Integer size) {
+        var dbResponse = userRepository.getByFilter(name, lastName, email, password, nationalCode, PageRequest.of(page, size));
         log.info("Getting UserList from DataBase: '{}'", dbResponse);
         return (UserListResponse) SetUtil.fillData(new UserListResponse(), dbResponse, userMapper);
     }
-
 
 
     @Override
@@ -88,5 +87,22 @@ public class UserServiceImpl implements UserService {
 
         log.info("User with this externalId:'{}' has been deleted successfully", externalId);
         userRepository.delete(user);
+    }
+
+    @Override
+    public User findUserByNationalCode(String nationalCode) throws UserNotFoundException {
+
+        log.info("Get user with this nationalCode: '{}'",nationalCode);
+        var user = userRepository.getUserByNationalCode(nationalCode).
+                orElseThrow(() -> new UserNotFoundException("User not found!!!"));
+        return user;
+    }
+
+    @Override
+    public User findUserByEmail(String email) throws UserNotFoundException {
+        log.info("Get user with this email: '{}'",email);
+        var user = userRepository.getUserByEmail(email).
+                orElseThrow(() -> new UserNotFoundException("User not found!!!"));
+        return user;
     }
 }

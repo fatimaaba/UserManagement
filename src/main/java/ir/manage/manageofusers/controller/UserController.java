@@ -3,6 +3,7 @@ package ir.manage.manageofusers.controller;
 import ir.manage.manageofusers.dto.request.AddUserRequest;
 import ir.manage.manageofusers.dto.response.UserListResponse;
 import ir.manage.manageofusers.exceptions.DuplicateNationalCodeException;
+import ir.manage.manageofusers.exceptions.UserNotFoundException;
 import ir.manage.manageofusers.service.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
@@ -41,5 +42,17 @@ public class UserController {
                                           @RequestParam(required = false) String nationalCode,
                                           @RequestParam(required = false) String email) {
         return userService.findAllUsers(name,lastName, password,nationalCode , email, page, size);
+    }
+
+    @GetMapping("/getuser/{email}")
+    @ResponseStatus(HttpStatus.OK)
+    public void getUser(@PathVariable String email) throws UserNotFoundException {
+        userService.findUserByEmail(email);
+    }
+
+    @GetMapping("/getuser/{nationalCode}")
+    @ResponseStatus(HttpStatus.OK)
+    public void getUserByNationalCode(@PathVariable String nationalCode) throws UserNotFoundException {
+        userService.findUserByNationalCode(nationalCode);
     }
 }

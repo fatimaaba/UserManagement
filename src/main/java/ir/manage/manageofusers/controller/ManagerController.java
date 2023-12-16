@@ -8,6 +8,7 @@ import ir.manage.manageofusers.dto.response.UserListResponse;
 import ir.manage.manageofusers.exceptions.DuplicateEmailException;
 import ir.manage.manageofusers.exceptions.DuplicateNationalCodeException;
 import ir.manage.manageofusers.exceptions.ManagerNotFoundException;
+import ir.manage.manageofusers.exceptions.UserNotFoundException;
 import ir.manage.manageofusers.service.ManagerService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
@@ -40,6 +41,12 @@ public class ManagerController {
                                              @RequestParam(required = false) String lastName,
                                              @RequestParam(required = false) String password,
                                              @RequestParam(required = false) String email) {
-        return managerService.findAllManagers(name,lastName, password, email, page, size);
+        return managerService.findAllManagers(name, lastName, password, email, page, size);
+    }
+
+    @GetMapping("/getmanager/{nationalCode}")
+    @ResponseStatus(HttpStatus.OK)
+    public void getManager(@PathVariable String email) throws ManagerNotFoundException {
+        managerService.getManagerByEmail(email);
     }
 }
