@@ -1,4 +1,4 @@
-package ir.manage.manageofusers.serviceimplUnitTest;
+package ir.manage.manageofusers.serviceimpluserunittest;
 
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.RandomStringUtils;

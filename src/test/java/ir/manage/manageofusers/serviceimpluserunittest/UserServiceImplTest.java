@@ -1,9 +1,8 @@
-package ir.manage.manageofusers.serviceimplUnitTest;
+package ir.manage.manageofusers.serviceimpluserunittest;
 
 import ir.manage.manageofusers.dto.request.AddUserRequest;
 import ir.manage.manageofusers.dto.request.UpdateUserRequest;
 import ir.manage.manageofusers.entity.User;
-import ir.manage.manageofusers.exceptions.DuplicateEmailException;
 import ir.manage.manageofusers.exceptions.DuplicateNationalCodeException;
 import ir.manage.manageofusers.exceptions.UserNotFoundException;
 import ir.manage.manageofusers.mapper.UserMapper;
@@ -20,7 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -76,11 +74,7 @@ class UserServiceImplTest {
         } catch (UserNotFoundException e) {
             e.getMessage();
         }
-        verify(userRepository,times(1)).getUserByExternalId(updateUser.getExternalId());
-    }
-
-    @Test
-    void findAllUsers() {
+        verify(userRepository, times(1)).getUserByExternalId(updateUser.getExternalId());
     }
 
     @Test
@@ -104,6 +98,6 @@ class UserServiceImplTest {
             e.getMessage();
         }
 
-        verify(userRepository,times(1)).getUserByExternalId(user.getExternalId());
+        verify(userRepository, times(1)).getUserByExternalId(user.getExternalId());
     }
 }
