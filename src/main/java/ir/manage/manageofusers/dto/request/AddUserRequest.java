@@ -2,6 +2,7 @@ package ir.manage.manageofusers.dto.request;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -27,7 +28,7 @@ public class AddUserRequest {
     @NotEmpty
     private String address;
 
-    @NotEmpty
+    @NotNull
     private Boolean isActive;
 
     @NotEmpty

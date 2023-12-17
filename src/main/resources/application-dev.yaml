@@ -6,27 +6,53 @@ spring:
           issuer-uri: http://localhost:8080/realms/SampleRealm
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
 
-
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/usermanager_schema
+    username: root
+    password: rootroot
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+    database: mysql
 
   liquibase:
-    enabled: true
+    enabled: false
     url: jdbc:mysql://localhost:3306/usermanager_schema
     user: root
     password: rootroot
     change-log: classpath:master.xml
 
-  jpa:
-    open-in-view: true
-    hibernate:
-      ddl-auto: update
-    database: mysql
-    show-sql: true
 
-  datasource:
-    url: jdbc:mysql://localhost:3306/usermanager_schema
-    username: root
-    password: rootroot
-  application:
-    name: userManagement
+#  datasource:
+#    driverClassName: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/usermanager_schema
+#    username: root
+#    password: rootroot
+#  jpa:
+#    hibernate.ddl-auto: update
+#    generate-ddl: true
+#    show-sql: true
+#    database: mysql
+
+
+
+
+#  jpa:
+#    open-in-view: true
+#    hibernate:
+#      ddl-auto: update
+#    database: mysql
+#    show-sql: true
+#
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/usermanager_schema
+#    username: root
+#    password: rootroot
+#  application:
+#    name: userManagement
+
 
 

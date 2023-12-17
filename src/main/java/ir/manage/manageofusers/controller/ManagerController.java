@@ -11,6 +11,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class ManagerController {
     private ManagerService managerService;
 
     @PostMapping("/add")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @Validated
     public void addUser(@Valid @RequestBody AddManagerRequest request) throws DuplicateEmailException, ManagerNotFoundException {
@@ -30,6 +32,7 @@ public class ManagerController {
 
     @GetMapping("/filter")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @Validated
     public ManagerListResponse getByCriteria(@RequestParam(required = false, defaultValue = "0") @Min(0) Integer page,
                                              @RequestParam(required = false, defaultValue = "20") @Min(1) @Max(100) Integer size,
@@ -41,6 +44,7 @@ public class ManagerController {
     }
 
     @GetMapping("/getmanager/{nationalCode}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public void getManager(@PathVariable String email) throws ManagerNotFoundException {
         managerService.getManagerByEmail(email);

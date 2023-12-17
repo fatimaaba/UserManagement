@@ -10,6 +10,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,12 +27,14 @@ public class UserController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAnyAuthority('client_admin')")
     @Validated
     public void addUser(@Valid @RequestBody AddUserRequest request) throws DuplicateNationalCodeException {
         userService.addUser(request);
     }
 
     @GetMapping("/filter")
+    @PreAuthorize("hasAnyAuthority('client_user','client_admin')")
     @ResponseStatus(HttpStatus.OK)
     @Validated
     public UserListResponse getByCriteria(@RequestParam(required = false, defaultValue = "0") @Min(0) Integer page,
@@ -45,14 +48,23 @@ public class UserController {
     }
 
     @GetMapping("/getuser/{email}")
+    @PreAuthorize("hasAnyAuthority('client_user','client_admin')")
     @ResponseStatus(HttpStatus.OK)
     public void getUser(@PathVariable String email) throws UserNotFoundException {
         userService.findUserByEmail(email);
     }
 
     @GetMapping("/getuser/{nationalCode}")
+    @PreAuthorize("hasAnyAuthority('client_user','client_admin')")
     @ResponseStatus(HttpStatus.OK)
     public void getUserByNationalCode(@PathVariable String nationalCode) throws UserNotFoundException {
         userService.findUserByNationalCode(nationalCode);
+    }
+
+    @DeleteMapping("/delete/{externalId}")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyAuthority('client_admin')")
+    public void deleteUser(@PathVariable String externalId) throws UserNotFoundException {
+       userService.deleteUser(externalId);
     }
 }

@@ -3,6 +3,7 @@ package ir.manage.manageofusers.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -15,6 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
 
@@ -40,6 +42,22 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/dept-service/v3/api-docs/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/organization-service/v3/api-docs/**").permitAll()
                 .requestMatchers("/swagger-ui/oauth2-redirect.html").permitAll()
+
+                .requestMatchers("/api/v1/users/add").hasRole("client_admin")
+                .requestMatchers("/api/v1/users/filter").hasRole("client_user")
+                .requestMatchers("/api/v1/users/filter").hasRole("client_admin")
+                .requestMatchers("/api/v1/users/getuser/{email}").hasRole("client_admin")
+                .requestMatchers("/api/v1/users/getuser/{email}").hasRole("client_user")
+                .requestMatchers("/api/v1/users/delete/{externalId}").hasRole("client_admin")
+
+                .requestMatchers("/api/v1/managers/add").hasRole("client_admin")
+                .requestMatchers("/api/v1/managers/filter").hasRole("client_admin")
+                .requestMatchers("/api/v1/users/getmanager/{nationalCode}").hasRole("client_admin")
+                .requestMatchers("/api/v1/users/delete/{externalId}").hasRole("client_admin")
+
+
+
+
                 .anyRequest()
                 .authenticated();
 
