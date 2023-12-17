@@ -2,9 +2,12 @@ package ir.manage.manageofusers.controller;
 
 
 import ir.manage.manageofusers.dto.request.AddManagerRequest;
+import ir.manage.manageofusers.dto.request.UpdateManagerRequest;
+import ir.manage.manageofusers.dto.request.UpdateUserRequest;
 import ir.manage.manageofusers.dto.response.ManagerListResponse;
 import ir.manage.manageofusers.exceptions.DuplicateEmailException;
 import ir.manage.manageofusers.exceptions.ManagerNotFoundException;
+import ir.manage.manageofusers.exceptions.UserNotFoundException;
 import ir.manage.manageofusers.service.ManagerService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
@@ -48,5 +51,12 @@ public class ManagerController {
     @ResponseStatus(HttpStatus.OK)
     public void getManager(@PathVariable String email) throws ManagerNotFoundException {
         managerService.getManagerByEmail(email);
+    }
+
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyAuthority('client_admin')")
+    public void updateUser(UpdateManagerRequest request) throws UserNotFoundException, ManagerNotFoundException {
+        managerService.updateManager(request);
     }
 }

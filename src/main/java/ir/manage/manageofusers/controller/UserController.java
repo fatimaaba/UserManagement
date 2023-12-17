@@ -1,6 +1,7 @@
 package ir.manage.manageofusers.controller;
 
 import ir.manage.manageofusers.dto.request.AddUserRequest;
+import ir.manage.manageofusers.dto.request.UpdateUserRequest;
 import ir.manage.manageofusers.dto.response.UserListResponse;
 import ir.manage.manageofusers.exceptions.DuplicateNationalCodeException;
 import ir.manage.manageofusers.exceptions.UserNotFoundException;
@@ -67,4 +68,12 @@ public class UserController {
     public void deleteUser(@PathVariable String externalId) throws UserNotFoundException {
        userService.deleteUser(externalId);
     }
+
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyAuthority('client_admin')")
+    public void updateUser(UpdateUserRequest updateUserRequest) throws UserNotFoundException {
+        userService.updateUser(updateUserRequest);
+    }
+
 }

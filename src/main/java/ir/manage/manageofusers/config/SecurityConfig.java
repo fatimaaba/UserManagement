@@ -43,19 +43,19 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/organization-service/v3/api-docs/**").permitAll()
                 .requestMatchers("/swagger-ui/oauth2-redirect.html").permitAll()
 
-                .requestMatchers("/api/v1/users/add").hasRole("client_admin")
-                .requestMatchers("/api/v1/users/filter").hasRole("client_user")
-                .requestMatchers("/api/v1/users/filter").hasRole("client_admin")
-                .requestMatchers("/api/v1/users/getuser/{email}").hasRole("client_admin")
-                .requestMatchers("/api/v1/users/getuser/{email}").hasRole("client_user")
-                .requestMatchers("/api/v1/users/delete/{externalId}").hasRole("client_admin")
+                .requestMatchers(HttpMethod.POST, "/api/v1/users/add").hasRole("client_admin")
+                .requestMatchers(HttpMethod.GET, "/api/v1/users/filter").hasRole("client_user")
+                .requestMatchers(HttpMethod.GET, "/api/v1/users/filter").hasRole("client_admin")
+                .requestMatchers(HttpMethod.GET, "/api/v1/users/getuser/{email}").hasRole("client_admin")
+                .requestMatchers(HttpMethod.GET, "/api/v1/users/getuser/{email}").hasRole("client_user")
+                .requestMatchers(HttpMethod.GET, "/api/v1/users/delete/{externalId}").hasRole("client_admin")
+                .requestMatchers(HttpMethod.PUT, "/api/v1/users/update").hasRole("client_admin")
 
-                .requestMatchers("/api/v1/managers/add").hasRole("client_admin")
-                .requestMatchers("/api/v1/managers/filter").hasRole("client_admin")
-                .requestMatchers("/api/v1/users/getmanager/{nationalCode}").hasRole("client_admin")
-                .requestMatchers("/api/v1/users/delete/{externalId}").hasRole("client_admin")
-
-
+                .requestMatchers(HttpMethod.POST, "/api/v1/managers/add").hasRole("client_admin")
+                .requestMatchers(HttpMethod.GET, "/api/v1/managers/filter").hasRole("client_admin")
+                .requestMatchers(HttpMethod.GET, "/api/v1/managers/getmanager/{nationalCode}").hasRole("client_admin")
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/managers/delete/{externalId}").hasRole("client_admin")
+                .requestMatchers(HttpMethod.PUT, "/api/v1/managers/update").hasRole("client_admin")
 
 
                 .anyRequest()
