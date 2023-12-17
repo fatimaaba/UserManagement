@@ -26,7 +26,7 @@ public class ManagerController {
     private ManagerService managerService;
 
     @PostMapping("/add")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('client_admin')")
     @ResponseStatus(HttpStatus.CREATED)
     @Validated
     public void addUser(@Valid @RequestBody AddManagerRequest request) throws DuplicateEmailException, ManagerNotFoundException {
@@ -35,7 +35,7 @@ public class ManagerController {
 
     @GetMapping("/filter")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('client_admin')")
     @Validated
     public ManagerListResponse getByCriteria(@RequestParam(required = false, defaultValue = "0") @Min(0) Integer page,
                                              @RequestParam(required = false, defaultValue = "20") @Min(1) @Max(100) Integer size,
@@ -47,7 +47,7 @@ public class ManagerController {
     }
 
     @GetMapping("/getmanager/{nationalCode}")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('client_admin')")
     @ResponseStatus(HttpStatus.OK)
     public void getManager(@PathVariable String email) throws ManagerNotFoundException {
         managerService.getManagerByEmail(email);

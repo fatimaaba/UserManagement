@@ -28,7 +28,8 @@ public class UserController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAnyAuthority('client_admin')")
+    //@PreAuthorize("hasAnyAuthority('client_admin')")
+    @PreAuthorize("hasRole('client_admin')")
     @Validated
     public void addUser(@Valid @RequestBody AddUserRequest request) throws DuplicateNationalCodeException {
         userService.addUser(request);
